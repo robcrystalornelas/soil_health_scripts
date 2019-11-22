@@ -1,9 +1,10 @@
 ## load data ####
-source("~/Desktop/UMD_org_soil_MA/UMD_project/scripts/soil_health_clean_data.R")
+source("~/Desktop/research/UMD_org_soil_MA/UMD_project/scripts/soil_health_clean_data.R")
 
 ## load libraries ####
 library(ggplot2)
 library(cowplot)
+library(maps)
 
 # Create map of world
 head(soil_health_raw_data)
