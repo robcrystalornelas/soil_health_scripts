@@ -30,3 +30,19 @@ random_effects_model_SOC <- rma(
   data = effect_sizes_SOC
 )
 random_effects_model_SOC
+
+# Make forest plot showing SOC results
+forest_plot_SOC <- viz_forest(
+  x = random_effects_model_SOC,
+  method = "REML",
+  xlab = "Response Ratio",
+  # make a label along x-axis for effect size
+  col = "Reds",
+  study_labels = effect_sizes_SOC$first_author,
+  summary_label = "Summary Effect",
+  type = "standard")
+forest_plot_SOC
+
+
+# funnel plot - explore this more, do I have to transform these?
+viz_sunset(effect_sizes_SOC[, c("yi", "vi")], true_effect = .14, sig_level = .1, power_contours = 'continuous')
