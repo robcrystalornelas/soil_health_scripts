@@ -19,7 +19,7 @@ gg <-
 
 gg <- gg + geom_bar(stat = "count", fill = "firebrick3") +
   coord_cartesian(clip = "off") +
-  scale_y_continuous(expand = c(0, 0), limits = c(0, 80))
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 90))
 gg
 
 gg <- gg + theme_cowplot()
