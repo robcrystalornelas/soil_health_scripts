@@ -19,15 +19,41 @@ effect_sizes_SOC <-
     sd2i = raw_data_SOC$control_sd_standardized, # control SD
     data = raw_data_SOC
   )
+
+# Inspect resulting dataframe
 head(effect_sizes_SOC)
 
-# Run the random effects model
-random_effects_model_SOC <- rma(
-  yi = yi, # specify where effect sizes are located in dataframe
-  vi = vi, # specify where variances are located in data frame
-  mods = ~ effect_sizes_SOC$study_code,
-  method = "REML", # model fitting
-  test = "knha", # Knapp and Hartung is commonly used to test for significance in random effects or mixed effects models
-  data = effect_sizes_SOC
-)
-random_effects_model_SOC
+mixed_effect_LTOAR_vs_STOAR <-
+  rma.mv(
+    yi,
+    vi,
+    mods = ~ LTOAR_or_STOAR - 1,
+    random = ~ 1 | study_code,
+    method = "REML",
+    digits = 4,
+    data = effect_sizes_SOC
+  )
+mixed_effect_LTOAR_vs_STOAR
+
+# Prepare forest plot labels
+plyr::count(effect_sizes_SOC$LTOAR_or_STOAR)
+summary_table_LTOAR <- data.frame(
+  "Duration" = c("LTOAR","STOAR"),
+  N = c(33,96))
+
+# Forest plot
+me_forest_plot_LTOAR_vs_STOAR <-
+  viz_forest(
+    x = mixed_effect_LTOAR_vs_STOAR,
+    method = "REML",
+    type = "summary_only",
+    summary_table = summary_table_LTOAR,
+    confidence_level = 0.95,
+    xlab = "Response Ratio",
+    col = "Greens",
+    variant = "rain",
+    x_limit = c(-.025,.45),
+    annotate_CI = TRUE
+  )
+me_forest_plot_LTOAR_vs_STOAR
+

@@ -21,19 +21,13 @@ effect_sizes_SOC <-
   )
 head(effect_sizes_SOC)
 
-# Run the random effects model
-random_effects_model_SOC <- rma(
-  yi = yi, # specify where effect sizes are located in dataframe
-  vi = vi, # specify where variances are located in data frame
-  method = "REML", # model fitting
-  test = "knha", # Knapp and Hartung is commonly used to test for significance in random effects or mixed effects models
-  data = effect_sizes_SOC
-)
-random_effects_model_SOC
+# Run the mixed effects model: article is assigned as a random effect 
+mixed_effects_SOC <- rma.mv(yi, vi, random = ~ 1 | study_code, data = effect_sizes_SOC)
+mixed_effects_SOC
 
 # Make forest plot showing SOC results
 forest_plot_SOC <- viz_forest(
-  x = random_effects_model_SOC,
+  x = mixed_effects_SOC,
   method = "REML",
   xlab = "Response Ratio",
   # make a label along x-axis for effect size
@@ -42,7 +36,6 @@ forest_plot_SOC <- viz_forest(
   summary_label = "Summary Effect",
   type = "standard")
 forest_plot_SOC
-
 
 # funnel plot - explore this more, do I have to transform these?
 viz_sunset(effect_sizes_SOC[, c("yi", "vi")], true_effect = .14, sig_level = .1, power_contours = 'continuous')

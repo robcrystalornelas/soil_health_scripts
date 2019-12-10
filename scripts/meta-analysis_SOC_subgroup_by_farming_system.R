@@ -1,6 +1,7 @@
 ## load libraries
 library(metafor)
 library(metaviz)
+library(forest)
 
 ## import data
 source(
@@ -32,33 +33,50 @@ head(systems_with_more_than_five)
 dim(systems_with_more_than_five)
 
 ## Mixed effect model for farming system
-mixed_effect_organic_system <- rma(
-  yi,  # outcome
-  vi,  # measure of variance
-  mods = ~ focal_organic_system - 1, # multiple moderating variables modeled as main effects
-  method = "REML",
-  data = systems_with_more_than_five,
-  weighted = TRUE,
-  slab = paste(first_author, publication_year, sep = "")
-)
-mixed_effect_organic_system
+# mixed_effect_organic_system <- rma(
+#   yi,  # outcome
+#   vi,  # measure of variance
+#   mods = ~ focal_organic_system - 1, # multiple moderating variables modeled as main effects
+#   method = "REML",
+#   data = systems_with_more_than_five,
+#   weighted = TRUE,
+#   slab = paste(first_author, publication_year, sep = "")
+# )
+# mixed_effect_organic_system
 
+mixed_effect_organic_system_rmamv <-
+  rma.mv(
+    yi,
+    vi,
+    mods = ~ focal_organic_system - 1,
+    random = ~ 1 |
+      study_code,
+    method = "REML",
+    digits = 4,
+    data = systems_with_more_than_five
+  )
+mixed_effect_organic_system_rmamv
+
+forest(mixed_effect_organic_system_rmamv)
+
+# Trying out forest plot with ggplot2
 # first, if we want to add in any summary-level info create a new summary table
 summary_table_farming_systems <- data.frame(
-  "Focal Organic System" = c("Cover Crop","Organic Amendment","OA + Till + CC","Tillage"),
+  "System" = c("Cover Crop","Organic Amendment","OA + Till + CC","Tillage"),
   N = c(11,53,33,21))
 head(summary_table_farming_systems)
 
 me_forest_plot_farming_system <-
   viz_forest(
-    x = mixed_effect_organic_system,
+    x = mixed_effect_organic_system_rmamv,
     method = "REML",
     type = "summary_only",
     summary_table = summary_table_farming_systems,
     confidence_level = 0.95,
     xlab = "Response Ratio",
-    col = "Greys",
-    text_size = 6,
+    col = "Blues",
+    variant = "rain",
+    text = 6,
     annotate_CI = TRUE
   )
 me_forest_plot_farming_system
