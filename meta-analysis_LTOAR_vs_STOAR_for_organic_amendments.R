@@ -66,4 +66,4 @@ me_forest_plot_LTOAR_vs_STOAR_OA_only <-
   )
 me_forest_plot_LTOAR_vs_STOAR_OA_only
 
-plot_grid(me_forest_plot_LTOAR_vs_STOAR, me_forest_plot_LTOAR_vs_STOAR_OA_only)
+plot_grid(me_forest_plot_LTOAR_vs_STOAR, me_forest_plot_LTOAR_vs_STOAR_OA_only, labels = "auto")
