@@ -49,17 +49,13 @@ mixed_effect_organic_system_rmamv <-
     yi,
     vi,
     mods = ~ focal_organic_system - 1,
-    random = ~ 1 |
-      study_code,
+    random = ~ 1 | study_code,
     method = "REML",
     digits = 4,
     data = systems_with_more_than_five
   )
 mixed_effect_organic_system_rmamv
 
-forest(mixed_effect_organic_system_rmamv)
-
-# Trying out forest plot with ggplot2
 # first, if we want to add in any summary-level info create a new summary table
 summary_table_farming_systems <- data.frame(
   "System" = c("Cover Crop","Organic Amendment","OA + Till + CC","Tillage"),
