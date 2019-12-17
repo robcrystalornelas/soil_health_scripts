@@ -4,6 +4,7 @@ library(mice)
 
 ## read in data ####
 soil_health_raw_data_topsoil <- read.csv("~/Desktop/research/UMD_org_soil_MA/Crystal-Ornelas_Thapa_Tully_datasheet - datasheet_topsoil_v1.csv", header = TRUE)
+dim(soil_health_raw_data_topsoil)
 
 # first, separate out SOC and MBC measurements
 raw_data_SOC_topsoil <- filter(soil_health_raw_data_topsoil, outcome_standardized == "SOC (g/kg)") 
@@ -90,7 +91,7 @@ meth[c("control_sd_standardized","treatment_sd_standardized")]="norm"
 # Now it's time to run the multiple imputation
 imputed_sds_MBC_topsoil <- mice(raw_data_MBC_with_nas_topsoil, method="pmm", predictorMatrix=predM, m=5, seed = 100)
 # impute data with probable means
-class(imputed_sds_MBC)
+class(imputed_sds_MBC_topsoil)
 
 # Create a dataset after the imputation
 imputed_sds_MBC_topsoil <- mice::complete(imputed_sds_MBC_topsoil)

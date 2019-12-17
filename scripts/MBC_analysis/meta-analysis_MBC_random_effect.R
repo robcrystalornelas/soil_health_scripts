@@ -4,22 +4,21 @@ library(metaviz)
 
 ## import data
 source(
-  "~/Desktop/research/UMD_org_soil_MA/UMD_project/scripts/soil_health_clean_data.R"
+  "~/Desktop/research/UMD_org_soil_MA/UMD_project/scripts/soil_health_clean_data_combined_soil_layers.R"
 )
 
 ## First, calculate effect sizes, based on the Ratio of Means (or Response Ratio) for each measurement  in our database
 effect_sizes_MBC <-
   escalc(
     "ROM", # Specify the effect size we want to calculate
-    m1i = raw_data_MBC$treatment_mean_standardized, # provide means for group 1
-    n1i = raw_data_MBC$treatment_n, # treatment sample size
-    sd1i = raw_data_MBC$treatment_sd_standardized, # treatment SD
-    m2i = raw_data_MBC$control_mean_standardized, # control mean
-    n2i = raw_data_MBC$control_n, # control sample size
-    sd2i = raw_data_MBC$control_sd_standardized, # control SD
-    data = raw_data_MBC
+    m1i = raw_data_MBC_combined$weighted_treatment_mean_standardized, # provide means for group 1
+    n1i = raw_data_MBC_combined$treatment_n, # treatment sample size
+    sd1i = raw_data_MBC_combined$weighted_treatment_sd_standardized, # treatment SD
+    m2i = raw_data_MBC_combined$weighted_control_mean_standardized, # control mean
+    n2i = raw_data_MBC_combined$control_n, # control sample size
+    sd2i = raw_data_MBC_combined$weighted_control_sd_standardized, # control SD
+    data = raw_data_MBC_combined
   )
-head(effect_sizes_MBC)
 
 # Run the random effects model
 random_effects_model_MBC <- rma(
@@ -30,6 +29,10 @@ random_effects_model_MBC <- rma(
   data = effect_sizes_MBC
 )
 random_effects_model_MBC
+
+# Run the mixed-effects model
+mixed_effects_MBC_combined <- rma.mv(yi, vi, random = ~ 1 | study_code, data = effect_sizes_MBC)
+mixed_effects_MBC_combined
 
 # Make forest plot showing SOC results
 forest_plot_MBC <- viz_forest(
