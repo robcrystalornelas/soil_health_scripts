@@ -7,6 +7,7 @@ source(
   "~/Desktop/research/UMD_org_soil_MA/UMD_project/scripts/soil_health_clean_data_combined_soil_layers.R"
 )
 
+
 ## First, calculate effect sizes, based on the Ratio of Means (or Response Ratio) for each measurement  in our database
 effect_sizes_SOC_combined <-
   escalc(
