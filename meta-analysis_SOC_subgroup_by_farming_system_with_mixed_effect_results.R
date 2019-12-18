@@ -8,6 +8,7 @@ source(
 )
 
 
+
 ## First, calculate effect sizes, based on the Ratio of Means (or Response Ratio) for each measurement  in our database
 effect_sizes_SOC_combined <-
   escalc(
