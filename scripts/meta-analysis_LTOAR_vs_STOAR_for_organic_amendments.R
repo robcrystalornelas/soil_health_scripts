@@ -62,9 +62,7 @@ forest_plot_LTOAR_vs_STOAR_only_organic_amendments <- forest(mixed_effect_LTOAR_
 )
 
 op <- par(cex=1.5, font=2)
-text(-.5, 3.1, "Duration")
+text(-.45, 3.1, "Duration")
 text(-.1, 3.1, "Sample Size")
-text(.58, 3.1, "ln(Response Ratio) [95% CI]")
-
-
-plot_grid(forest_plot_LTOAR_vs_STOAR, forest_plot_LTOAR_vs_STOAR_only_organic_amendments, labels = "auto")
+text(.85, 3.1, "ln(Response Ratio) [95% CI]")
+dev.off()
