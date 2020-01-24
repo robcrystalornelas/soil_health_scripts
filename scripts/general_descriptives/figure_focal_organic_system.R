@@ -1,17 +1,17 @@
-## load data ####
-source("~/Desktop/research/UMD_org_soil_MA/UMD_project/scripts/soil_health_clean_data.R")
+soil_health_full_dataset <- read.csv("~/Desktop/research/UMD_org_soil_MA/Crystal-Ornelas_Thapa_Tully_datasheet - datasheet_v2.csv", header = TRUE)
 
 ## load libraries ####
 library(ggplot2)
 library(cowplot)
 
 ## Organize data
-counted_organic_systems <- as.data.frame(dplyr::count(soil_health_raw_data, focal_organic_system)) 
+tail(soil_health_full_dataset)
+counted_organic_systems <- as.data.frame(dplyr::count(soil_health_full_dataset, focal_organic_system)) 
 counted_organic_systems
 
 ## Make figure
 gg <-
-  ggplot(soil_health_raw_data, aes(
+  ggplot(soil_health_full_dataset, aes(
     x = reorder(focal_organic_system, focal_organic_system, function(x)
       -
         length(x))

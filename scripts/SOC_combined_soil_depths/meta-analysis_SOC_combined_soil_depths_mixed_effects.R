@@ -4,8 +4,11 @@ library(metaviz)
 
 ## import data
 source(
-  "~/Desktop/research/UMD_org_soil_MA/UMD_project/scripts/soil_health_clean_data_combined_soil_layers.R"
+  "~/Desktop/research/UMD_org_soil_MA/UMD_project/scripts/SOC_combined_soil_depths/soil_health_clean_data_SOC_combined.R"
 )
+
+raw_data_SOC_combined <- soil_health_raw_data_combined_SOC 
+raw_data_SOC_combined
 
 ## First, calculate effect sizes, based on the Ratio of Means (or Response Ratio) for each measurement  in our database
 effect_sizes_SOC_combined <-
@@ -20,7 +23,6 @@ effect_sizes_SOC_combined <-
     data = raw_data_SOC_combined
   )
 
-
 # Run the mixed effects model: article is assigned as a random effect 
 mixed_effects_SOC_combined <- rma.mv(yi, vi, random = ~ 1 | study_code, data = effect_sizes_SOC_combined)
 mixed_effects_SOC_combined
@@ -29,13 +31,10 @@ mixed_effects_SOC_combined
 forest_plot_SOC_combined <- viz_forest(
   x = mixed_effects_SOC_combined,
   method = "REML",
-  xlab = "Response Ratio",
+  xlab = "ln(Response Ratio)",
   # make a label along x-axis for effect size
   col = "Reds",
   study_labels = effect_sizes_SOC_combined$first_author,
   summary_label = "Summary Effect",
   type = "standard")
 forest_plot_SOC_combined
-
-# funnel plot - explore this more, do I have to transform these?
-viz_sunset(effect_sizes_SOC_combined[, c("yi", "vi")], true_effect = .1573, sig_level = .1, power_contours = 'continuous')

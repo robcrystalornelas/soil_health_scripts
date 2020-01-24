@@ -21,11 +21,11 @@ raw_data_MBC_with_nas_topsoil <- dplyr::select(soil_health_raw_data_topsoil_MBC,
 raw_data_MBC_with_nas_topsoil <- raw_data_MBC_with_nas_topsoil %>%
   mutate(
     study_code = as.factor(study_code),
-    control_mean_standardized = as.numeric(control_mean_standardized),
-    control_sd_standardized = as.numeric(control_sd_standardized),
+    control_mean_MBC_ten = as.numeric(control_mean_MBC_ten),
+    control_SD_MBC_ten = as.numeric(control_SD_MBC_ten),
     control_n = as.numeric(control_n),
-    treatment_mean_standardized = as.numeric(treatment_mean_standardized),
-    treatment_sd_standardized = as.numeric(treatment_sd_standardized),
+    treatment_mean_MBC_ten = as.numeric(treatment_mean_MBC_ten),
+    treatment_SD_MBC_ten = as.numeric(treatment_SD_MBC_ten),
     treatment_n = as.numeric(treatment_n)
   )
 
@@ -42,10 +42,10 @@ predM
 predM[, c("study_code")] = 0
 
 # Skip any variables for imputation, this variable will be used for prediction
-meth[c("control_mean_standardized","treatment_mean_standardized","control_n","treatment_n")]=""
+meth[c("control_mean_MBC_ten","treatment_mean_MBC_ten","control_n","treatment_n")]=""
 
 # What are we going to impute, gotta pick different methods for ordinal, factors or continuous
-meth[c("control_sd_standardized","treatment_sd_standardized")]="norm" 
+meth[c("control_SD_MBC_ten","treatment_SD_MBC_ten")]="norm" 
 
 # Now it's time to run the multiple imputation
 imputed_sds_MBC_topsoil <- mice(raw_data_MBC_with_nas_topsoil, method="pmm", predictorMatrix=predM, m=5, seed = 100)
@@ -60,5 +60,5 @@ imputed_sds_MBC_topsoil
 sapply(imputed_sds_MBC_topsoil, function(x) sum(is.na(x)))
 
 # Now that we have imputed values, replace whole column in R
-raw_data_MBC_topsoil$control_sd_standardized <- imputed_sds_MBC_topsoil$control_sd_standardized
-raw_data_MBC_topsoil$treatment_sd_standardized <- imputed_sds_MBC_topsoil$treatment_sd_standardized
+raw_data_MBC_with_nas_topsoil$control_SD_MBC_ten <- imputed_sds_MBC_topsoil$control_SD_MBC_ten
+raw_data_MBC_with_nas_topsoil$treatment_SD_MBC_ten <- imputed_sds_MBC_topsoil$treatment_SD_MBC_ten

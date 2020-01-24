@@ -4,9 +4,11 @@ library(metaviz)
 
 ## import data
 source(
-  "~/Desktop/research/UMD_org_soil_MA/UMD_project/scripts/soil_health_clean_data_combined_soil_layers.R"
+  "~/Desktop/research/UMD_org_soil_MA/UMD_project/scripts/MBC_combined_depth_analysis/soil_health_clean_data_MBC_combined.R"
 )
 
+
+raw_data_MBC_combined <- soil_health_raw_data_combined_MBC
 ## First, calculate effect sizes, based on the Ratio of Means (or Response Ratio) for each measurement  in our database
 effect_sizes_MBC <-
   escalc(
@@ -35,14 +37,15 @@ mixed_effects_MBC_combined <- rma.mv(yi, vi, random = ~ 1 | study_code, data = e
 mixed_effects_MBC_combined
 
 # Make forest plot showing SOC results
-forest_plot_MBC <- viz_forest(
-  x = random_effects_model_MBC,
+forest_plot_MBC_mixed_effects <- viz_forest(
+  x = mixed_effects_MBC_combined,
   method = "REML",
-  xlab = "Response Ratio",
+  xlab = "ln(Response Ratio)",
   # make a label along x-axis for effect size
   col = "Reds",
   study_labels = effect_sizes_MBC$first_author,
   summary_label = "Summary Effect",
   type = "standard",
-  text_size = 9)
-forest_plot_MBC
+  text_size = 7)
+forest_plot_MBC_mixed_effects
+dev.off()

@@ -4,10 +4,11 @@ library(metaviz)
 
 ## import data
 source(
-  "~/Desktop/research/UMD_org_soil_MA/UMD_project/scripts/soil_health_clean_data_combined_soil_layers.R"
+  "~/Desktop/research/UMD_org_soil_MA/UMD_project/scripts/SOC_combined_soil_depths/soil_health_clean_data_SOC_combined.R"
 )
 
-
+raw_data_SOC_combined <- soil_health_raw_data_combined_SOC 
+raw_data_SOC_combined
 
 ## First, calculate effect sizes, based on the Ratio of Means (or Response Ratio) for each measurement  in our database
 effect_sizes_SOC_combined <-
@@ -45,19 +46,20 @@ mixed_effect_organic_system_rmamv <-
   )
 mixed_effect_organic_system_rmamv
 
-subgroup_samplesize <- c(11,45,10)
+subgroup_samplesize <- c(8,49,12)
 forest_plot_farming_system <- forest(mixed_effect_organic_system_rmamv$b,
        ci.lb = mixed_effect_organic_system_rmamv$ci.lb,
        ci.ub = mixed_effect_organic_system_rmamv$ci.ub,
        ilab = subgroup_samplesize,
-       ilab.xpos = c(-.35),
+       ilab.xpos = c(-.20),
        annotate = TRUE,
        xlab = "ln(Response Ratio)",
        slab = c("Cover Crop", "Organic Amendment","Tillage"),
-       cex = 1.5,
+       cex = 2,
        )
 
-op <- par(cex=1.5, font=2)
-text(-.75, 4.2, "Organic Farming System", pos = 4)
-text(-.38, 4.2, "Sample Size", pos = 4)
-text(.85, 4.2, "ln(Response Ratio) [95% CI]", pos = 2)
+op <- par(cex=2, font=2)
+text(-.38, 4.2, "Organic Farming System")
+text(-.15, 4.2, "Sample Size")
+text(.63, 4.2, "ln(Response Ratio) [95% CI]")
+dev.off()
