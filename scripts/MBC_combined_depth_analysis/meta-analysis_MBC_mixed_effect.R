@@ -9,6 +9,7 @@ source(
 
 
 raw_data_MBC_combined <- soil_health_raw_data_combined_MBC
+head(raw_data_MBC_combined)
 ## First, calculate effect sizes, based on the Ratio of Means (or Response Ratio) for each measurement  in our database
 effect_sizes_MBC <-
   escalc(
@@ -37,15 +38,26 @@ mixed_effects_MBC_combined <- rma.mv(yi, vi, random = ~ 1 | study_code, data = e
 mixed_effects_MBC_combined
 
 # Make forest plot showing SOC results
-forest_plot_MBC_mixed_effects <- viz_forest(
-  x = mixed_effects_MBC_combined,
-  method = "REML",
-  xlab = "ln(Response Ratio)",
-  # make a label along x-axis for effect size
-  col = "Reds",
-  study_labels = effect_sizes_MBC$first_author,
-  summary_label = "Summary Effect",
-  type = "standard",
-  text_size = 7)
-forest_plot_MBC_mixed_effects
-dev.off()
+# forest_plot_MBC_mixed_effects <- viz_forest(
+#   x = mixed_effects_MBC_combined,
+#   method = "REML",
+#   xlab = "ln(Response Ratio)",
+#   # make a label along x-axis for effect size
+#   col = "Reds",
+#   study_labels = effect_sizes_MBC$first_author,
+#   summary_label = "Summary Effect",
+#   type = "standard",
+#   text_size = 7)
+# forest_plot_MBC_mixed_effects
+# dev.off()
+
+forest(mixed_effects_MBC_combined,
+       #ilab = subgroup_samplesize,
+       #ilab.xpos = c(-.30),
+       annotate = FALSE,
+       xlab = "ln(Response Ratio)",
+       slab = effect_sizes_MBC$first_author,
+       cex = 2,
+       col = "#F66B4D",
+       mlab = "Summary")
+

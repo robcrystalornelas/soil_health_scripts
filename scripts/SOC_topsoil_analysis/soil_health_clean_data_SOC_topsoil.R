@@ -8,7 +8,8 @@ dim(soil_health_raw_data_topsoil_SOC)
 
 # Get the columns of data we need
 raw_data_SOC_with_nas_topsoil <- dplyr::select(soil_health_raw_data_topsoil_SOC, 
-                                               study_code, 
+                                               study_code,
+                                               first_author,
                                                control_mean_standardized_SOC_ten, 
                                                control_sd_standardized_SOC_ten, 
                                                control_n,
@@ -39,6 +40,7 @@ predM
 # We can remove some meaningless variables as predictors, for example study code
 predM
 predM[, c("study_code")] = 0
+predM[, c("first_author")] = 0
 
 # Skip any variables for imputation, this variable will be used for prediction
 meth[c("control_mean_standardized_SOC_ten","treatment_mean_standardized_SOC_ten","control_n","treatment_n")]=""

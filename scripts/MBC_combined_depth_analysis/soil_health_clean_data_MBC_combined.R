@@ -53,3 +53,4 @@ sapply(imputed_sds_MBC_combined, function(x) sum(is.na(x)))
 # Now that we have imputed values, replace whole column in R
 soil_health_raw_data_combined_MBC$weighted_control_sd_standardized <- imputed_sds_MBC_combined$weighted_control_sd_standardized
 soil_health_raw_data_combined_MBC$weighted_treatment_sd_standardized <- imputed_sds_MBC_combined$weighted_treatment_sd_standardized
+soil_health_raw_data_combined_MBC

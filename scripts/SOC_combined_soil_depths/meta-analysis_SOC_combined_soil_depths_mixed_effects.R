@@ -28,13 +28,22 @@ mixed_effects_SOC_combined <- rma.mv(yi, vi, random = ~ 1 | study_code, data = e
 mixed_effects_SOC_combined
 
 # Make forest plot showing SOC results
-forest_plot_SOC_combined <- viz_forest(
-  x = mixed_effects_SOC_combined,
-  method = "REML",
-  xlab = "ln(Response Ratio)",
-  # make a label along x-axis for effect size
-  col = "Reds",
-  study_labels = effect_sizes_SOC_combined$first_author,
-  summary_label = "Summary Effect",
-  type = "standard")
-forest_plot_SOC_combined
+# forest_plot_SOC_combined <- viz_forest(
+#   x = mixed_effects_SOC_combined,
+#   method = "REML",
+#   xlab = "ln(Response Ratio)",
+#   # make a label along x-axis for effect size
+#   col = "Reds",
+#   study_labels = effect_sizes_SOC_combined$first_author,
+#   summary_label = "Summary Effect",
+#   type = "standard")
+# forest_plot_SOC_combined
+
+study_numbers <- c(1:116)
+forest(mixed_effects_SOC_combined,
+       annotate = FALSE,
+       xlab = "ln(Response Ratio)",
+       slab = study_numbers,
+       cex = .8,
+       col = "#F66B4D",
+       mlab = "Summary")

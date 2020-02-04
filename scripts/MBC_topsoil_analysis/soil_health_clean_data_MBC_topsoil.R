@@ -60,5 +60,6 @@ imputed_sds_MBC_topsoil
 sapply(imputed_sds_MBC_topsoil, function(x) sum(is.na(x)))
 
 # Now that we have imputed values, replace whole column in R
-raw_data_MBC_with_nas_topsoil$control_SD_MBC_ten <- imputed_sds_MBC_topsoil$control_SD_MBC_ten
-raw_data_MBC_with_nas_topsoil$treatment_SD_MBC_ten <- imputed_sds_MBC_topsoil$treatment_SD_MBC_ten
+soil_health_raw_data_topsoil_MBC$control_SD_MBC_ten <- imputed_sds_MBC_topsoil$control_SD_MBC_ten
+soil_health_raw_data_topsoil_MBC$treatment_SD_MBC_ten <- imputed_sds_MBC_topsoil$treatment_SD_MBC_ten
+soil_health_raw_data_topsoil_MBC
