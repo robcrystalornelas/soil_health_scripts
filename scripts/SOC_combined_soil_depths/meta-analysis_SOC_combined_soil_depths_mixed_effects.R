@@ -23,27 +23,58 @@ effect_sizes_SOC_combined <-
     data = raw_data_SOC_combined
   )
 
+# Then, reorder the dataset based on organic farming system
+effect_sizes_SOC_combined <- effect_sizes_SOC_combined[order(effect_sizes_SOC_combined$focal_organic_system),]
+effect_sizes_SOC_combined$focal_organic_system
+
 # Run the mixed effects model: article is assigned as a random effect 
 mixed_effects_SOC_combined <- rma.mv(yi, vi, random = ~ 1 | study_code, data = effect_sizes_SOC_combined)
 mixed_effects_SOC_combined
+## Make forest plot
+# First, get labels, so that we don't repeat farming systems
+plyr::count(effect_sizes_SOC_combined$focal_organic_system)
+full_ma_study_label <- c(
+  "biochar",
+  strrep("", 1:1),
+  "cover crop",
+  strrep("", 1:7),
+  "cover crop and organic amendment",
+  "crop rotation",
+  strrep("", 1:1),
+  "green manure",
+  strrep("", 1:2),
+  "green manure and organic amendment",
+  "organic amendment",
+  strrep("", 1:49),
+  "organic amendment and till",
+  strrep("", 1:3),
+  "organic amendment and till and cover crop",
+  strrep("", 1:32),
+  "tillage",
+  strrep("", 1:11))
 
-# Make forest plot showing SOC results
-# forest_plot_SOC_combined <- viz_forest(
-#   x = mixed_effects_SOC_combined,
-#   method = "REML",
-#   xlab = "ln(Response Ratio)",
-#   # make a label along x-axis for effect size
-#   col = "Reds",
-#   study_labels = effect_sizes_SOC_combined$first_author,
-#   summary_label = "Summary Effect",
-#   type = "standard")
-# forest_plot_SOC_combined
+plyr::count(effect_sizes_SOC_combined$focal_organic_system)
+par(mar = c(5.1, 4.1, .8, 2.1)) # first number is bottom, 2nd is left, third is top margins
+forest(
+  effect_sizes_SOC_combined$yi,
+  effect_sizes_SOC_combined$vi,
+  annotate = FALSE,
+  xlab = "ln(Response Ratio)",
+  slab = full_ma_study_label,
+  ylim = c(-1,120),
+  cex = 1.3,
+  pch = 15,
+  col = c(
+    rep('#481567FF', 2),
+    rep('#cc6a70ff', 8),
+    rep('#DCE319FF', 1),
+    rep("#F66B4D", 2),
+    rep('#1F968BFF', 3),
+    rep("#81176D", 1),
+    rep('#73D055FF', 50),
+    rep('#3CBB75FF', 4),
+    rep('#404788FF', 33),
+    rep ("#f9b641ff", 12)))
 
-study_numbers <- c(1:116)
-forest(mixed_effects_SOC_combined,
-       annotate = FALSE,
-       xlab = "ln(Response Ratio)",
-       slab = study_numbers,
-       cex = .8,
-       col = "#F66B4D",
-       mlab = "Summary")
+addpoly(mixed_effects_SOC_combined, cex = 1.3, col ="black", annotate = TRUE, mlab = "Summary")
+dev.off()

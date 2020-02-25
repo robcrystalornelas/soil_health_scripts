@@ -1,6 +1,7 @@
 ## load libraries
 library(metafor)
 library(metaviz)
+library(forestplot)
 
 ## import data
 source(
@@ -9,7 +10,7 @@ source(
 
 raw_data_SOC_topsoil <- soil_health_raw_data_topsoil_SOC
 head(raw_data_SOC_topsoil)
-
+plyr::count(raw_data_SOC_topsoil$focal_organic_system)
 ## First, calculate effect sizes, based on the Ratio of Means (or Response Ratio) for each measurement  in our database
 effect_sizes_SOC_topsoil <-
   escalc(
@@ -22,7 +23,10 @@ effect_sizes_SOC_topsoil <-
     sd2i = raw_data_SOC_topsoil$control_sd_standardized_SOC_ten, # control SD
     data = raw_data_SOC_topsoil
   )
-head(effect_sizes_SOC_topsoil)
+
+# Then, reorder the dataset based on organic farming system
+effect_sizes_SOC_topsoil <- effect_sizes_SOC_topsoil[order(effect_sizes_SOC_topsoil$focal_organic_system),]
+effect_sizes_SOC_topsoil$focal_organic_system
 
 # Run the mixed effects model: article is assigned as a random effect 
 mixed_effects_SOC_topsoil <- rma.mv(yi, vi, random = ~ 1 | study_code, data = effect_sizes_SOC_topsoil)
@@ -31,46 +35,20 @@ mixed_effects_SOC_topsoil
 AIC(mixed_effects_SOC_topsoil)
 AIC(mixed_effects_SOC_combined)
 
-# Make forest plot showing SOC results
-# forest_plot_SOC_topsoil <- viz_forest(
-#   x = mixed_effects_SOC_topsoil,
-#   method = "REML",
-#   xlab = "ln(Response Ratio)",
-#   # make a label along x-axis for effect size
-#   col = "Reds",
-#   study_labels = effect_sizes_SOC_topsoil$first_author,
-#   summary_label = "Summary Effect",
-#   type = "standard")
-# forest_plot_SOC_topsoil
-
-## alternative forest plot
-#
-study_numbers <- c(1:116)
-forest(mixed_effects_SOC_topsoil,
-       annotate = FALSE,
-       xlab = "ln(Response Ratio)",
-       slab = study_numbers,
-       cex = .8,
-       col = "#F66B4D",
-       mlab = "Summary")
-
-# This shows vector of ordering by focal organic system
-order(effect_sizes_SOC_topsoil$focal_organic_system)
-# Forest plot grouped
-study_numbers <- c(1:116)
+## Make forest plot
+# First, get labels, so that we don't repeat farming systems
 plyr::count(effect_sizes_SOC_topsoil$focal_organic_system)
-
 full_ma_study_label <- c(
   "biochar",
   strrep("", 1:1),
   "cover crop",
-  strrep("", 1:6),
+  strrep("", 1:7),
+  "cover crop and organic amendment",
   "crop rotation diversity",
   strrep("", 1:1),
   "green manure",
-  strrep("", 1:3),
+  strrep("", 1:2),
   "green manure and organic amendment",
-  strrep("", 1:1),
   "organic amendment",
   strrep("", 1:49),
   "organic amendment and till",
@@ -81,11 +59,28 @@ full_ma_study_label <- c(
   strrep("", 1:11))
 full_ma_study_label
 
-forest(mixed_effects_SOC_topsoil,
-       annotate = FALSE,
-       xlab = "ln(Response Ratio)",
-       slab = full_ma_study_label,
-       cex = .9,
-       col = "#F66B4D",
-       mlab = "Summary",
-       order = order(effect_sizes_SOC_topsoil$focal_organic_system))
+plyr::count(effect_sizes_SOC_topsoil$focal_organic_system)
+par(mar = c(5.1, 4.1, .8, 2.1)) # first number is bottom, 2nd is left, third is top margins
+forest(
+  effect_sizes_SOC_topsoil$yi,
+  effect_sizes_SOC_topsoil$vi,
+  annotate = FALSE,
+  xlab = "ln(Response Ratio)",
+  slab = full_ma_study_label,
+  ylim = c(-1,120),
+  cex = 1.3,
+  pch = 15,
+  col = c(
+    rep('#481567FF', 2),
+    rep('#cc6a70ff', 8),
+    rep('#DCE319FF', 1),
+    rep("#F66B4D", 2),
+    rep('#1F968BFF', 3),
+    rep("#81176D", 1),
+    rep('#73D055FF', 50),
+    rep('#3CBB75FF', 4),
+    rep('#404788FF', 33),
+    rep ("#f9b641ff", 12)))
+
+addpoly(mixed_effects_SOC_topsoil, cex = 1.3, col ="black", annotate = TRUE, mlab = "Summary")
+dev.off()

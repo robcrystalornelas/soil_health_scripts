@@ -55,7 +55,7 @@ system_SOC_and_years_of_mgmt_plot <-
            y = yi,
            col = as.factor(focal_organic_system)
          )) +
-  viridis::scale_color_viridis(discrete = TRUE) +
+  scale_colour_manual(values = c("#482677FF", "#287D8EFF", "#73D055FF")) +
   geom_point(size = 3,
              alpha = .8,
              position = "jitter") +
@@ -68,12 +68,12 @@ system_SOC_and_years_of_mgmt_plot <-
   ) +
   theme_cowplot() +
   ylab("ln(Response ratio)") +
-  xlab("Organically managed years") +
+  xlab("Years under organic management") +
   theme(
-    axis.title = element_text(size = 20),
-    axis.text = element_text(size = 20),
-    legend.title = element_text(size = 20),
-    legend.text = element_text(size = 15)
+    axis.title = element_text(size = 25),
+    axis.text = element_text(size = 25),
+    legend.title = element_text(size = 25),
+    legend.text = element_text(size = 25)
   ) +
   labs(col = "Organic system") +
   geom_hline(

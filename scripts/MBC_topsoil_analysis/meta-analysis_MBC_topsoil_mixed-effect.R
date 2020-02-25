@@ -25,6 +25,11 @@ effect_sizes_MBC_topsoil <-
   )
 effect_sizes_MBC_topsoil
 
+# Then, reorder the dataset based on organic farming system
+effect_sizes_MBC_topsoil <- effect_sizes_MBC_topsoil[order(effect_sizes_MBC_topsoil$focal_organic_system),]
+effect_sizes_MBC_topsoil$focal_organic_system
+
+
 # Run the random effects model
 random_effects_model_MBC_topsoil <- rma(
   yi = yi, # specify where effect sizes are located in dataframe
@@ -56,6 +61,7 @@ AIC(mixed_effects_MBC_topsoil)
 # 
 # dev.off()
 ## Alternative forest plot
+
 forest(mixed_effects_MBC_topsoil,
                           #ilab = subgroup_samplesize,
                           #ilab.xpos = c(-.30),
@@ -65,4 +71,33 @@ forest(mixed_effects_MBC_topsoil,
                           cex = 2,
                           col = "#F66B4D",
                           mlab = "Summary")
+dev.off()
+
+## Make forest plot
+# First, get labels, so that we don't repeat farming systems
+plyr::count(effect_sizes_MBC_topsoil$focal_organic_system)
+full_ma_study_label_MBC <- c(
+  "green manure",
+  "organic amendment",
+  strrep("", 1:9),
+  "tillage",
+  strrep("", 1:1))
+full_ma_study_label_MBC
+View(effect_sizes_MBC_topsoil)
+plyr::count(effect_sizes_MBC_topsoil$focal_organic_system)
+par(mar = c(5.1, 4.1, .8, 2.1)) # first number is bottom, 2nd is left, third is top margins
+forest(
+  effect_sizes_MBC_topsoil$yi,
+  effect_sizes_MBC_topsoil$vi,
+  annotate = FALSE,
+  xlab = "ln(Response Ratio)",
+  slab = full_ma_study_label_MBC,
+  ylim = c(0,16),
+  cex = 1.5,
+  pch = 15,
+  col = c(
+    rep('#482677FF', 1),
+    rep('#287D8EFF', 10),
+    rep('#73D055FF', 2)))
+addpoly(mixed_effects_MBC_topsoil, row = 0 , cex = 1.5,col ="black", annotate = TRUE, mlab = "Summary")
 dev.off()

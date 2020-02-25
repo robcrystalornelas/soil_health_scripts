@@ -2,7 +2,6 @@
 library(tidyverse)
 library(mice)
 
-
 ## read in data ####
 soil_health_raw_data_combined_SOC <- read.csv("~/Desktop/research/UMD_org_soil_MA/Crystal-Ornelas_Thapa_Tully_datasheet - datasheet_combined_soil_depth_SOC.csv", header = TRUE)
 dim(soil_health_raw_data_combined_SOC)
