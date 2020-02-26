@@ -102,42 +102,51 @@ effect_sizes_SOC_topsoil$yi
 SOC_combined_hist <-ggplot(effect_sizes_SOC_combined, aes(x=yi)) + 
   geom_histogram(binwidth=0.05,color="black", fill="white") +
   ggtitle("SOC weighted average") +
-  ylab("Frequency")+
-  xlab("ln(Response ratio)")+
+  xlab("ln(Response ratio)") +
+  ylab ("") + 
   theme_cowplot() +
-  theme(plot.title = element_text(hjust = 0.5))
+  theme(plot.title = element_text(size = 25, hjust = -.06, face = "bold"),
+        axis.title = element_text(size = 25, face = "bold")) +
+  
+  scale_y_continuous(expand = c(0,0),limits=c(0,20))
 SOC_combined_hist
 
 # SOC topsoil
 SOC_topsoil_hist <-ggplot(effect_sizes_SOC_topsoil, aes(x=yi)) + 
   geom_histogram(binwidth=0.05,color="black", fill="white") +
-  ggtitle("SOC topsoil") +
-  ylab("Frequency")+
-  xlab("ln(Response ratio)")+
+  ggtitle("SOC frequency") +
+  xlab("ln(Response ratio)") +
+  ylab ("") + 
   theme_cowplot() +
-  theme(plot.title = element_text(hjust = 0.5))
+  theme(plot.title = element_text(size = 25, hjust = -.06, face = "bold"),
+        axis.title = element_text(size = 25, face = "bold")) +
+scale_y_continuous(expand = c(0,0),limits=c(0,20))
 SOC_topsoil_hist
 
 #MBC combined
 MBC_combined_hist <-ggplot(effect_sizes_MBC_combined, aes(x=yi)) + 
   geom_histogram(binwidth=0.05,color="black", fill="white") +
-  ggtitle("MBC weighted average") +
-  ylab("Frequency")+
-  xlab("ln(Response ratio)")+
+  ggtitle("MBC weighted average frequency")+
+  xlab("ln(Response ratio)") +
+  ylab ("") + 
   theme_cowplot() +
-  theme(plot.title = element_text(hjust = 0.5))
+  theme(plot.title = element_text(size = 25, hjust = -.06, face = "bold"),
+        axis.title = element_text(size = 25, face = "bold")) +
+  scale_y_continuous(expand = c(0,0),limits=c(0,4))
 MBC_combined_hist
 
 #MBC topsoil
 MBC_topsoil_hist <-ggplot(effect_sizes_MBC_topsoil, aes(x=yi)) + 
   geom_histogram(binwidth=0.05,color="black", fill="white") +
-  ggtitle("MBC topsoil") +
-  ylab("Frequency")+
-  xlab("ln(Response ratio)")+
+  ggtitle("MBC frequency")+
+  xlab("ln(Response ratio)") +
+  ylab ("") + 
   theme_cowplot() +
-  theme(plot.title = element_text(hjust = 0.5))
+  theme(plot.title = element_text(size = 25, hjust = -.06, face = "bold"),
+        axis.title = element_text(size = 25, face = "bold")) +
+  scale_y_continuous(expand = c(0,0),limits=c(0,3))
 MBC_topsoil_hist
 
-plot_grid(SOC_combined_hist, SOC_topsoil_hist,MBC_combined_hist,MBC_topsoil_hist, labels = c('A', 'B','C','D'), label_size = 12)
+plot_grid(SOC_topsoil_hist,MBC_topsoil_hist, labels = c('a', 'b'), label_size = 15)
 
 

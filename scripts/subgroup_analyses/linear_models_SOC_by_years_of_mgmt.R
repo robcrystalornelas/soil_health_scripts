@@ -67,13 +67,15 @@ system_SOC_and_years_of_mgmt_plot <-
     fill = "#33638DFF"
   ) +
   theme_cowplot() +
-  ylab("ln(Response ratio)") +
+  ggtitle("ln(Response ratio)") +
   xlab("Years under organic management") +
   theme(
-    axis.title = element_text(size = 25),
+    axis.title = element_text(size = 25, face = "bold"),
+    title = element_text(size = 25, face = "bold", hjust = -0.5),
     axis.text = element_text(size = 25),
     legend.title = element_text(size = 25),
-    legend.text = element_text(size = 25)
+    legend.text = element_text(size = 25),
+    plot.title = element_text(hjust = -.2, size = 25)
   ) +
   labs(col = "Organic system") +
   geom_hline(

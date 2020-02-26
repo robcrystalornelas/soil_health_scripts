@@ -42,13 +42,11 @@ full_ma_study_label <- c(
   "biochar",
   strrep("", 1:1),
   "cover crop",
-  strrep("", 1:7),
-  "cover crop and organic amendment",
+  strrep("", 1:8),
   "crop rotation diversity",
   strrep("", 1:1),
   "green manure",
-  strrep("", 1:2),
-  "green manure and organic amendment",
+  strrep("", 1:3),
   "organic amendment",
   strrep("", 1:49),
   "organic amendment and till",
@@ -70,17 +68,17 @@ forest(
   ylim = c(-1,120),
   cex = 1.3,
   pch = 15,
+  cex.lab = 1.5,
   col = c(
-    rep('#481567FF', 2),
-    rep('#cc6a70ff', 8),
-    rep('#DCE319FF', 1),
-    rep("#F66B4D", 2),
-    rep('#1F968BFF', 3),
-    rep("#81176D", 1),
-    rep('#73D055FF', 50),
-    rep('#3CBB75FF', 4),
+    rep('#73D055FF', 2),
+    rep('#cc6a70ff', 9),
+    rep("#1F968BFF", 2),
+    rep('#F66B4D', 4),
+    rep('#481567FF', 50),
+    rep('#f9b641ff', 4),
     rep('#404788FF', 33),
-    rep ("#f9b641ff", 12)))
+    rep ("#3CBB75FF", 12)))
 
 addpoly(mixed_effects_SOC_topsoil, cex = 1.3, col ="black", annotate = TRUE, mlab = "Summary")
 dev.off()
+

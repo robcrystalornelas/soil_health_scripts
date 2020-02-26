@@ -14,7 +14,12 @@ map_of_study_sites<- ggplot(world_map, aes(x = long, y = lat, group = group)) +
   theme_cowplot() +
   coord_equal(ratio=1) +
   xlab("longitude") + 
-  ylab("latitude")
+ ylab("") +
+  theme(
+    axis.title.x = element_text(size=20, face="bold"),
+    axis.title.y = element_text(size=20, face="bold")) +
+  ggtitle("latitude") +
+  theme(plot.title = element_text(hjust = -.05, size = 20))
 map_of_study_sites
 
 unique_country_and_code<- select(soil_health_raw_data_full, study_code, study_location)
