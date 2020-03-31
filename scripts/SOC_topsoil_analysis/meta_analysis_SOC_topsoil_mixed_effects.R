@@ -31,6 +31,7 @@ effect_sizes_SOC_topsoil$focal_organic_system
 # Run the mixed effects model: article is assigned as a random effect 
 mixed_effects_SOC_topsoil <- rma.mv(yi, vi, random = ~ 1 | study_code, data = effect_sizes_SOC_topsoil)
 mixed_effects_SOC_topsoil
+?rma.mv
 
 AIC(mixed_effects_SOC_topsoil)
 AIC(mixed_effects_SOC_combined)

@@ -106,7 +106,8 @@ SOC_combined_hist <-ggplot(effect_sizes_SOC_combined, aes(x=yi)) +
   ylab ("") + 
   theme_cowplot() +
   theme(plot.title = element_text(size = 25, hjust = -.06, face = "bold"),
-        axis.title = element_text(size = 25, face = "bold")) +
+        axis.title = element_text(size = 25, face = "bold"),
+        axis.text = element_text(size = 15)) +
   
   scale_y_continuous(expand = c(0,0),limits=c(0,20))
 SOC_combined_hist
@@ -119,7 +120,8 @@ SOC_topsoil_hist <-ggplot(effect_sizes_SOC_topsoil, aes(x=yi)) +
   ylab ("") + 
   theme_cowplot() +
   theme(plot.title = element_text(size = 25, hjust = -.06, face = "bold"),
-        axis.title = element_text(size = 25, face = "bold")) +
+        axis.title = element_text(size = 25, face = "bold"),
+        axis.text = element_text(size = 15)) +
 scale_y_continuous(expand = c(0,0),limits=c(0,20))
 SOC_topsoil_hist
 
@@ -131,7 +133,8 @@ MBC_combined_hist <-ggplot(effect_sizes_MBC_combined, aes(x=yi)) +
   ylab ("") + 
   theme_cowplot() +
   theme(plot.title = element_text(size = 25, hjust = -.06, face = "bold"),
-        axis.title = element_text(size = 25, face = "bold")) +
+        axis.title = element_text(size = 25, face = "bold"),
+        axis.text = element_text(size = 15)) +
   scale_y_continuous(expand = c(0,0),limits=c(0,4))
 MBC_combined_hist
 
@@ -143,10 +146,11 @@ MBC_topsoil_hist <-ggplot(effect_sizes_MBC_topsoil, aes(x=yi)) +
   ylab ("") + 
   theme_cowplot() +
   theme(plot.title = element_text(size = 25, hjust = -.06, face = "bold"),
-        axis.title = element_text(size = 25, face = "bold")) +
+        axis.title = element_text(size = 25, face = "bold"),
+        axis.text = element_text(size = 15)) +
   scale_y_continuous(expand = c(0,0),limits=c(0,3))
 MBC_topsoil_hist
 
-plot_grid(SOC_topsoil_hist,MBC_topsoil_hist, labels = c('a', 'b'), label_size = 15)
+plot_grid(SOC_topsoil_hist,MBC_topsoil_hist, labels = c('a', 'b'), label_size = 25)
 
 

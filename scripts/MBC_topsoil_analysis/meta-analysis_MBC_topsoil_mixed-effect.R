@@ -46,22 +46,7 @@ summary(mixed_effects_MBC_topsoil)
 AIC(mixed_effects_MBC_combined)
 AIC(mixed_effects_MBC_topsoil)
 
-# Make forest plot showing SOC results
-# forest_plot_MBC_mixed_effects_topsoil <- viz_forest(
-#   x = mixed_effects_MBC_topsoil,
-#   method = "REML",
-#   xlab = "ln(Response Ratio)",
-#   # make a label along x-axis for effect size
-#   col = "Reds",
-#   study_labels = effect_sizes_MBC_topsoil$first_author,
-#   summary_label = "Summary Effect",
-#   type = "standard",
-#   text_size = 7)
-# forest_plot_MBC_mixed_effects_topsoil
-# 
-# dev.off()
-## Alternative forest plot
-
+# Create forest plot ####
 forest(mixed_effects_MBC_topsoil,
                           #ilab = subgroup_samplesize,
                           #ilab.xpos = c(-.30),
