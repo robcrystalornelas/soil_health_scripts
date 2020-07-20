@@ -5,7 +5,7 @@ library(mice)
 ## read in data ####
 soil_health_raw_data_combined_SOC <- read.csv("~/Desktop/research/UMD_org_soil_MA/Crystal-Ornelas_Thapa_Tully_datasheet - datasheet_combined_soil_depth_SOC.csv", header = TRUE)
 dim(soil_health_raw_data_combined_SOC)
-
+set.seed(111)
 # Get just the columns we need
 raw_data_SOC_with_nas_combined <- dplyr::select(soil_health_raw_data_combined_SOC, study_code,weighted_control_mean_standardized, weighted_control_sd_standardized, control_n,weighted_treatment_mean_standardized,weighted_treatment_sd_standardized,treatment_n)
 
