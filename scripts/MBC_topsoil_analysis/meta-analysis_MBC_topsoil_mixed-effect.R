@@ -15,12 +15,12 @@ raw_data_MBC_topsoil
 effect_sizes_MBC_topsoil <-
   escalc(
     "ROM", # Specify the effect size we want to calculate
-    m1i = raw_data_MBC_topsoil$treatment_mean_MBC_ten, # provide means for group 1
+    m1i = raw_data_MBC_topsoil$treatment_mean, # provide means for group 1
     n1i = raw_data_MBC_topsoil$treatment_n, # treatment sample size
-    sd1i = raw_data_MBC_topsoil$treatment_SD_MBC_ten, # treatment SD
-    m2i = raw_data_MBC_topsoil$control_mean_MBC_ten, # control mean
+    sd1i = raw_data_MBC_topsoil$treatment_sd, # treatment SD
+    m2i = raw_data_MBC_topsoil$control_mean, # control mean
     n2i = raw_data_MBC_topsoil$control_n, # control sample size
-    sd2i = raw_data_MBC_topsoil$control_SD_MBC_ten, # control SD
+    sd2i = raw_data_MBC_topsoil$control_sd, # control SD
     data = raw_data_MBC_topsoil
   )
 effect_sizes_MBC_topsoil
@@ -68,7 +68,7 @@ full_ma_study_label_MBC <- c(
   "tillage",
   strrep("", 1:1))
 full_ma_study_label_MBC
-View(effect_sizes_MBC_topsoil)
+
 plyr::count(effect_sizes_MBC_topsoil$focal_organic_system)
 par(mar = c(5.1, 4.1, .8, 2.1)) # first number is bottom, 2nd is left, third is top margins
 forest(
