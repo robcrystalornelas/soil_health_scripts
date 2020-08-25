@@ -51,8 +51,8 @@ forest_plot_farming_system <- forest(mixed_effect_organic_system_rmamv$b,
        ilab = subgroup_samplesize,
        ilab.xpos = c(-.11),
        annotate = TRUE,
-       xlab = "ln(Response Ratio)",
-       slab = c("Cover Crop", "Organic Amendment","Tillage"),
+       xlab = "ln(Response ratio)",
+       slab = c("Cover crop", "Organic amendment","Conservation tillage"),
        cex = 2,
        digits = 3
        )
